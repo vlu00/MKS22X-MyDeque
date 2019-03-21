@@ -22,6 +22,25 @@ public class MyDeque<E>{
     return size;
   }
 
+  //need to resize
+  public void addFirst(E element){
+    if (start == 0) {
+      data[data.length-1] = element;
+      start = data.length-1;
+      size++;
+    }
+    else {
+      data[start-1] = element;
+      start--;
+      size++; 
+    }
+  }
+
+  public void addLast(E element){
+    data[end+1] = element;
+    end++;
+  }
+
   public String toString(){
     String display = "";
     for (int i = start; i < size; i++) {
@@ -37,12 +56,12 @@ public class MyDeque<E>{
   }
 
   public static void main(String[] args) {
-    MyDeque A = new MyDeque(10);
-    System.out.println(A);  
+    MyDeque<Integer> A = new MyDeque(10);
+    A.addFirst(1);
+    System.out.println(A);
   }
   /*
-  public void addFirst(E element){ }
-  public void addLast(E element){ }
+
   public E removeFirst(){ }
   public E removeLast(){ }
   public E getFirst(){ }
