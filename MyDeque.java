@@ -22,8 +22,38 @@ public class MyDeque<E>{
     return size;
   }
 
+  public E getFirst(){
+    return data[start];
+  }
+
+  public E getLast(){
+    return data[end];
+  }
+
+  @SuppressWarnings("unchecked")
+  public void resize() {
+    E[] ary = (E[])new Object[size * 2 + 1];
+    if (start < end) {
+      for(int i = 0; i < size; i++) {
+        ary[i] = data[i];
+      }
+    }
+    else {
+      for (int i = 0; i < end; i++) {
+        ary[i] = data[i];
+      }
+      for (int i = 0; i < data.length-start; i++) {
+        ary[data.length-1-i] = data[size-1-i];
+      }
+    }
+    data = ary;
+  }
+
   //need to resize
   public void addFirst(E element){
+    if (size == data.length) {
+      resize();
+    }
     if (start == 0) {
       data[data.length-1] = element;
       start = data.length-1;
@@ -32,24 +62,39 @@ public class MyDeque<E>{
     else {
       data[start-1] = element;
       start--;
-      size++; 
+      size++;
     }
   }
 
   public void addLast(E element){
-    data[end+1] = element;
-    end++;
+    if (size == data.length) {
+      resize();
+    }
+    if (end == data.length-1) {
+      data[0] = element;
+      end = 0;
+      size++;
+    }
+    else {
+      data[end+1] = element;
+      end++;
+      size++;
+    }
   }
 
   public String toString(){
     String display = "";
-    for (int i = start; i < size; i++) {
-      if (i == size-1) {
-        display += data[i];
-        i = 0;
+    if (start < end) {
+      for (int i = 0; i < size; i++) {
+        display = display + data[i] + " ";
       }
-      else {
-        display += data[i];
+    }
+    else {
+      for (int i = 0; i < data.length-start; i++) {
+        display = display + data[size-1-i] + " ";
+      }
+      for (int i = 0; i < end; i++) {
+        display = display + data[i] + " ";
       }
     }
     return display;
@@ -59,12 +104,13 @@ public class MyDeque<E>{
     MyDeque<Integer> A = new MyDeque(10);
     A.addFirst(1);
     System.out.println(A);
+    A.addLast(2);
+    System.out.println(A);
   }
   /*
 
   public E removeFirst(){ }
   public E removeLast(){ }
-  public E getFirst(){ }
-  public E getLast(){ }
+
   */
 }
