@@ -54,7 +54,11 @@ public class MyDeque<E>{
     if (size == data.length) {
       resize();
     }
-    if (start == 0) {
+    if (start == 0 && size == 0) {
+      data[0] = element;
+      size++;
+    }
+    else if (start == 0) {
       data[data.length-1] = element;
       start = data.length-1;
       size++;
@@ -86,15 +90,15 @@ public class MyDeque<E>{
     String display = "";
     if (start < end) {
       for (int i = 0; i < size; i++) {
-        display = display + data[i] + " ";
+        display = display+ data[i] + " ";
       }
     }
     else {
-      for (int i = 0; i < data.length-start; i++) {
-        display = display + data[size-1-i] + " ";
+      for (int i = start; i < data.length; i++) {
+        display = display+ data[i] + " ";
       }
-      for (int i = 0; i < end; i++) {
-        display = display + data[i] + " ";
+      for (int i = 0; i < end+1; i++) {
+        display = display+ data[i] + " ";
       }
     }
     return display;
@@ -103,6 +107,7 @@ public class MyDeque<E>{
   public static void main(String[] args) {
     MyDeque<Integer> A = new MyDeque(10);
     A.addFirst(1);
+    System.out.println(A.size());
     System.out.println(A);
     A.addLast(2);
     System.out.println(A);
