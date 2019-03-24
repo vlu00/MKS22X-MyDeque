@@ -18,6 +18,10 @@ public class MyDeque<E>{
     end = 0;
   }
 
+  public int len() {
+    return data.length;
+  }
+
   public int size(){
     return size;
   }
@@ -110,11 +114,18 @@ public class MyDeque<E>{
 
   public static void main(String[] args) {
     MyDeque<Integer> A = new MyDeque(10);
-    A.addFirst(1);
-    System.out.println(A.size());
+    A.addLast(1);
+     A.addLast(2);
+     A.addLast(3);
+     A.addLast(4);
+     A.addLast(5);
+     System.out.println(A);
+     A.addLast(6);
+     System.out.println(A.len());
+    //System.out.println(A.size());
     System.out.println(A);
-    A.addLast(2);
-    System.out.println(A);
+    //A.addLast(2);
+    //System.out.println(A);
   }
   /*
 
