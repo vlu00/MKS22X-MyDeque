@@ -74,7 +74,11 @@ public class MyDeque<E>{
     if (size == data.length) {
       resize();
     }
-    if (end == data.length-1) {
+    if (end == 0 && size == 0) {
+      data[0] = element;
+      size++;
+    }
+    else if (end == data.length-1) {
       data[0] = element;
       end = 0;
       size++;
