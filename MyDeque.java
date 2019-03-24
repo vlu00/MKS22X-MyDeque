@@ -57,7 +57,6 @@ public class MyDeque<E>{
     data = ary;
   }
 
-  //need to resize
   public void addFirst(E element){
     if (element == null) {
       throw new NullPointerException();
@@ -156,8 +155,11 @@ public class MyDeque<E>{
 
   public String toString(){
     String display = "";
-    if (start < end) {
-      for (int i = 0; i < size; i++) {
+    if (size() == 0) {
+      return display; 
+    }
+    if (start <= end) {
+      for (int i = start; i < end+1; i++) {
         display = display+ data[i] + " ";
       }
     }
@@ -172,10 +174,25 @@ public class MyDeque<E>{
     return display;
   }
 
-  public static void main(String[] args) {
-    MyDeque<Integer> A = new MyDeque(10);
-    A.addFirst(1);
-    System.out.println(A.removeFirst());
-
+  public int st() {
+    return start;
   }
+  public int en() {
+    return end;
+  }
+
+  public static void main(String[] args) {
+    MyDeque<Integer> A = new MyDeque(5);
+
+    for (int i = 0; i < 8; i++) {
+      A.addLast(1);
+      System.out.println(A);
+    }
+
+    for (int i = 0; i < 8; i++) {
+      A.removeFirst();
+      System.out.println(A);
+    }
+  }
+
 }
