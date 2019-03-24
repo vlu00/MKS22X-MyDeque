@@ -18,19 +18,21 @@ public class MyDeque<E>{
     end = 0;
   }
 
-  public int len() {
-    return data.length;
-  }
-
   public int size(){
     return size;
   }
 
   public E getFirst(){
+    //if (size == 0) {
+    //  throw new NoSuchElementException();
+    //}
     return data[start];
   }
 
   public E getLast(){
+    //if (size == 0) {
+    //  throw new NoSuchElementException();
+    //}
     return data[end];
   }
 
@@ -55,6 +57,9 @@ public class MyDeque<E>{
 
   //need to resize
   public void addFirst(E element){
+    if (element == null) {
+      throw new NullPointerException();
+    }
     if (size == data.length) {
       resize();
     }
@@ -75,6 +80,9 @@ public class MyDeque<E>{
   }
 
   public void addLast(E element){
+    if (element == null) {
+      throw new NullPointerException();
+    }
     if (size == data.length) {
       resize();
     }
@@ -92,6 +100,28 @@ public class MyDeque<E>{
       end++;
       size++;
     }
+  }
+
+  public E removeFirst(){
+    E old;
+     if (start == 0 && size == 1) {
+      old = data[0];
+      data[0] = null;
+      size--;
+    }
+    else if (start == data.length-1) {
+      old = data[start];
+      data[start] = null;
+      start = 0;
+      size--;
+    }
+    else {
+      old = data[start];
+      data[start] = null;
+      start++;
+      size--;
+    }
+    return old;
   }
 
   public String toString(){
@@ -114,22 +144,13 @@ public class MyDeque<E>{
 
   public static void main(String[] args) {
     MyDeque<Integer> A = new MyDeque(10);
-    A.addLast(1);
-     A.addLast(2);
-     A.addLast(3);
-     A.addLast(4);
-     A.addLast(5);
-     System.out.println(A);
-     A.addLast(6);
-     System.out.println(A.len());
-    //System.out.println(A.size());
-    System.out.println(A);
-    //A.addLast(2);
-    //System.out.println(A);
+    A.addFirst(1);
+    System.out.println(A.removeFirst());
+
   }
   /*
 
-  public E removeFirst(){ }
+
   public E removeLast(){ }
 
   */
