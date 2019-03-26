@@ -24,6 +24,7 @@ public class Calculator{
     }
   }
 
+
   public static double eval(String s){
     MyDeque<Double> A = new MyDeque(s.length());
     //int size = s.length;
@@ -31,13 +32,13 @@ public class Calculator{
     while (s.length() > 0) {
       String[] parts = s.split(" ");
       if (isOperator(parts[0])) {
-        Double first = A.removeLast();
         Double second = A.removeLast();
+        Double first = A.removeLast();
         Double num = operate(first, second, parts[0]);
         A.addLast(num);
       }
       else {
-        Double num = 1.0 * Integer.parseInt(parts[0]);
+        Double num = Double.parseDouble(parts[0]);
         A.addLast(num);
       }
       s = parts[1];
