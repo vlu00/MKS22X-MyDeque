@@ -1,19 +1,54 @@
 public class Calculator{
 
-  public static boolean isNum(String s){
-    
+  public static boolean isOperator(String s){
+    return s.equals("+") || s.equals("-") ||
+           s.equals("*") || s.equals("/") ||
+           s.equals("%");
+  }
+
+  public static Double operate(Double f, double s, String operator) {
+    if (operator.equals("+")) {
+      return f + s;
+    }
+    if (operator.equals("-")) {
+      return f - s;
+    }
+    if (operator.equals("*")) {
+      return f*s;
+    }
+    if (operator.equals("/")) {
+      return f / s;
+    }
+    else {
+      return f % s;
+    }
   }
 
   public static double eval(String s){
-    MyDeque A = new MyDeque(s.length());
+    MyDeque<Double> A = new MyDeque(s.length());
     //int size = s.length;
     //int i = 0; //s.length();
-    while (s.length > 0) {
-      double num = Integer.parstInt(s.split(" "));
-      if
-      s = s.substring(2);
-      i++;
+    while (s.length() > 0) {
+      String[] parts = s.split(" ");
+      if (isOperator(parts[0])) {
+        Double first = A.removeLast();
+        Double second = A.removeLast();
+        Double num = operate(first, second, parts[0]);
+        A.addLast(num);
+      }
+      else {
+        Double num = 1.0 * Integer.parseInt(parts[0]);
+        A.addLast(num);
+      }
+      s = parts[1];
     }
-    double num =
+    return A.getFirst();
+  }
+
+  public static void main (String[] args) {
+    System.out.println(eval("10 2.0 +")); // is 12.0
+    System.out.println(eval("11 3 - 4 + 2.5 *")); // is 30.0
+    System.out.println(eval("8 2 + 99 9 - * 2 + 9 -")); // is 893.
+    System.out.println(eval("1 2 3 4 5 + * - -")); // is 26.0
   }
 }
